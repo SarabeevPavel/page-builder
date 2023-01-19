@@ -1,31 +1,3 @@
-In this assignment, you will create a simple page builder using React and the Tailwind CSS framework. The page builder will allow users to create and customise a single page by adding and configuring rows and columns.
-
-## Requirements
-
----
-
-- Create a page builder that allows users to add and remove rows.
-- Each row can be split into a configurable number of columns using the **`grid`** and **`grid-cols`** classes from Tailwind.
-- The gap between columns can be adjusted using the **`gap`**.
-- The background color of each row can be customised.
-- Add UI elements (such as text, images, buttons, etc.) to the columns in each row.
-- Style the UI elements using Tailwind CSS.
-
----
-
-В этом задании вы создадите простой конструктор страниц с использованием React и CSS-фреймворка Tailwind. Конструктор страниц позволит пользователям создавать и настраивать одну страницу, добавляя и настраивая строки и столбцы.
-
-## Требования
-
----
-
-- Создайте конструктор страниц, который позволит пользователям добавлять и удалять строки.
-- Каждая строка может быть разделена на настраиваемое количество колонок с помощью классов **`grid`** и **`grid-cols`** из Tailwind.
-- Промежуток между столбцами может быть настроен с помощью **`gap`**.
-- Цвет фона каждой строки может быть настроен.
-- Добавьте элементы пользовательского интерфейса (такие как текст, изображения, кнопки и т.д.) в столбцы каждой строки.
-- Стилизуйте элементы пользовательского интерфейса с помощью Tailwind CSS.
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
