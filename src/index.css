@@ -22,4 +22,10 @@ code {
   .field-default {
     @apply bg-white text-black/75 w-full rounded-md p-3;
   }
+  .button-default {
+    @apply flex items-center justify-center text-sm font-medium text-gray-900 hover:text-white rounded-lg;
+  }
+  .filed-container {
+    @apply flex flex-col relative w-full;
+  }
 }

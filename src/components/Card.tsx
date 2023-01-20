@@ -1,13 +1,13 @@
-import { useState } from "react"
-import { CardType, CardData } from "../utils/types"
+import { CardType } from "../utils/types"
 import { BsPlusCircleFill } from "react-icons/bs"
-import { Button } from "./Button"
+import { GrClearOption } from "react-icons/gr"
 
 interface CardProps extends CardType {
   rowIndex: number
   cardIndex: number
   onOpen: () => void
   onEdit: (objOfIndexes: { rowIndex: number; cardIndex: number }) => void
+  onClear: (objOfIndexes: { rowIndex: number; cardIndex: number }) => void
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -16,18 +16,17 @@ export const Card: React.FC<CardProps> = ({
   cardIndex,
   onOpen,
   onEdit,
+  onClear,
 }) => {
-  const handleClick = () => {
-    onOpen()
-    onEdit({ rowIndex, cardIndex })
-  }
-
   return (
     <div className=" h-full overflow-hidden bg-white rounded-md shadow-md border-gray-700">
       {!data && (
-        <div className="w-full h-full border-0 bg-gradient-to-b from-gray-900  via-purple-900 to-violet-600 flex justify-center items-center">
+        <div className="w-full h-full border-0  flex justify-center items-center bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900">
           <button
-            onClick={handleClick}
+            onClick={() => {
+              onOpen()
+              onEdit({ rowIndex, cardIndex })
+            }}
             className="text-blue-500 rounded-full hover:bg-gradient-to-br from-pink-500 to-orange-400"
           >
             <BsPlusCircleFill size={35} />
@@ -36,7 +35,7 @@ export const Card: React.FC<CardProps> = ({
       )}
 
       {data && (
-        <div className="flex flex-col justify-start h-full relative">
+        <div className="flex flex-col justify-start h-full relative group">
           <div className="w-full h-36 overflow-hidden">
             <img
               className="rounded-t-lg object-cover w-full h-full"
@@ -53,13 +52,14 @@ export const Card: React.FC<CardProps> = ({
             <p className="mb-3 text-sm font-normal text-gray-700">
               {data.description}
             </p>
-            {/* <button
-              onClick={() => console.log("clear")}
-              className="absolute inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Clear card
-            </button> */}
           </div>
+          <button
+            onClick={() => onClear({ rowIndex, cardIndex })}
+            className="button-default flex flex-col absolute left-1/2 right-1/2 transform -translate-x-1/2 w-28 rounded-b-full px-3 py-2 -translate-y-full text-black/70 bg-zinc-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-1 ease-in-out duration-300"
+          >
+            <GrClearOption size={30} />
+            Clear card
+          </button>
         </div>
       )}
     </div>

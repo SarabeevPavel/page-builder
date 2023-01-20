@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react"
 import { createPortal } from "react-dom"
 import { RxCrossCircled } from "react-icons/rx"
-import { BsFillTrashFill } from "react-icons/bs"
 import { CardData, EditIndexesType, RowType } from "../utils/types"
 import { useForm } from "react-hook-form"
+import { Uploader } from "./Uploader"
 
 interface ModalProps {
   open: boolean
@@ -24,8 +24,14 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const [preview, setPreview] = useState<string | null>(null)
 
-  const { register, handleSubmit, reset } = useForm()
-  const onEdit = (data: any) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm()
+
+  const handleEdit = (data: any) => {
     console.log(data)
 
     const { rowIndex, cardIndex } = editIndexes
@@ -94,69 +100,63 @@ export const Modal: React.FC<ModalProps> = ({
           <h3 className="text-center text-white mb-10">Add data</h3>
           <button
             className="absolute right-3 top-3 text-white opacity-50 hover:opacity-100 ease-in-out duration-200 rounded-full"
-            onClick={onClose}
+            onClick={() => {
+              onClose()
+              reset()
+            }}
           >
             <RxCrossCircled size={25} />
           </button>
           <div className="flex flex-row-reverse justify-between items-start">
             <form
-              onSubmit={handleSubmit(onEdit)}
+              onSubmit={handleSubmit(handleEdit)}
               className="flex flex-col justify-between items-center w-full"
             >
-              <input
-                type="text"
-                defaultValue=""
-                {...register("title", { required: true })}
-                className="field-default mb-10 h-12"
-                maxLength={20}
-              />
-              <textarea
-                defaultValue=""
-                {...register("description")}
-                className="field-default mb-10 px-3 resize-none h-20 "
-                maxLength={80}
-              />
-
-              <div className="mb-10 w-full">
-                {!preview && (
-                  <div className="relative group flex items-center justify-center h-12">
-                    <>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        multiple={false}
-                        className="relative text-right opacity-0 z-20 cursor-pointer w-full"
-                        {...register("image")}
-                        onChange={(e) => handleUploader(e)}
-                      />
-                      <button className="absolute left-0 w-full h-12 z-10 flex justify-center items-center rounded-lg text-white bg-blue-700 group-hover:bg-blue-900 ease-in-out duration-200">
-                        Add photo
-                      </button>
-                    </>
-                  </div>
-                )}
-                {preview && (
-                  <div className="relative flex items-center justify-center w-full ">
-                    <img
-                      src={preview}
-                      alt="preview"
-                      className="w-full relative top-0 left-0 right-0 bottom-0 object-cover h-36 z-10"
-                    />
-                    <div className="z-20 w-full h-full flex justify-center items-center bg-black/50 absolute opacity-0 hover:opacity-100 ease-in-out duration-200">
-                      <button
-                        onClick={() => setPreview(null)}
-                        className="w-10 h-10 p-2 rounded-full hover:bg-red-600 hover:text-white ease-in-out duration-200"
-                      >
-                        <BsFillTrashFill size={25} />
-                      </button>
-                    </div>
-                  </div>
+              <div className="filed-container">
+                <label
+                  className={`mb-2 ${
+                    errors.title ? "text-red-500" : "text-white/70"
+                  }`}
+                >
+                  Title *
+                </label>
+                <input
+                  type="text"
+                  defaultValue=""
+                  {...register("title", { required: true })}
+                  className={`field-default mb-10 h-12 ${
+                    errors.title ? "bg-red-200" : "bg-white"
+                  }`}
+                  // style={{ backgroundColor: errors.title ? "white" : "red" }}
+                  maxLength={20}
+                />
+                {errors.title && (
+                  <span className="text-red-500 absolute bottom-3">
+                    Title is required
+                  </span>
                 )}
               </div>
 
+              <div className="filed-container">
+                <label className="mb-2 text-white/70">Description</label>
+                <textarea
+                  defaultValue=""
+                  {...register("description")}
+                  className="field-default mb-10 px-3 resize-none h-20 "
+                  maxLength={80}
+                />
+              </div>
+
+              <Uploader
+                preview={preview}
+                setPreview={(newPreview) => setPreview(newPreview)}
+                register={register}
+                handleUploader={handleUploader}
+              />
+
               <button
                 type="submit"
-                className="bg-blue-500 rounded-xl h-10 w-full text-white hover:bg-blue-900 ease-in-out duration-200"
+                className="button-default bg-blue-600 h-10 w-full text-white hover:bg-blue-900 ease-in-out duration-200"
               >
                 Edit
               </button>
