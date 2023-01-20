@@ -58,7 +58,7 @@ export const Card: React.FC<CardProps> = ({
             className="button-default flex flex-col absolute left-1/2 right-1/2 transform -translate-x-1/2 w-28 rounded-b-full px-3 py-2 -translate-y-full text-black/70 bg-zinc-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-1 ease-in-out duration-300"
           >
             <GrClearOption size={30} />
-            Clear card
+            Clear
           </button>
         </div>
       )}

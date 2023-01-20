@@ -32,8 +32,6 @@ export const Modal: React.FC<ModalProps> = ({
   } = useForm()
 
   const handleEdit = (data: any) => {
-    console.log(data)
-
     const { rowIndex, cardIndex } = editIndexes
 
     const updatedCardData: CardData = {
@@ -73,14 +71,6 @@ export const Modal: React.FC<ModalProps> = ({
     setPreview(objectUrl)
     return () => URL.revokeObjectURL(objectUrl)
   }
-
-  useEffect(() => {
-    const { rowIndex, cardIndex } = editIndexes
-    if (rowIndex === null || cardIndex === null) return
-    console.log("rowIndex:", rowIndex, "cardIndex:", cardIndex)
-    const selectCardData = rows[rowIndex].data[cardIndex]
-    console.log(selectCardData)
-  }, [editIndexes, rows])
 
   const element = useMemo(() => document.createElement("div"), [])
 
@@ -127,7 +117,6 @@ export const Modal: React.FC<ModalProps> = ({
                   className={`field-default mb-10 h-12 ${
                     errors.title ? "bg-red-200" : "bg-white"
                   }`}
-                  // style={{ backgroundColor: errors.title ? "white" : "red" }}
                   maxLength={20}
                 />
                 {errors.title && (
