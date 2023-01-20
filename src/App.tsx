@@ -36,6 +36,11 @@ function App() {
     setRows([...rows, newRow])
   }
 
+  const handleDeleteRow = (rowIndex: number) => {
+    const newRows = rows.filter((row, i) => i !== rowIndex)
+    setRows(newRows)
+  }
+
   const handleClearCard = (editIndexes: EditIndexesType) => {
     const { rowIndex, cardIndex } = editIndexes
 
@@ -78,6 +83,7 @@ function App() {
                 gap={row.gap}
                 onOpen={() => setIsOpen(true)}
                 onClear={(indexes: EditIndexesType) => handleClearCard(indexes)}
+                onDelete={(rowIndex: number) => handleDeleteRow(rowIndex)}
               />
             ))
           ) : (

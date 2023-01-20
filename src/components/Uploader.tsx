@@ -42,7 +42,7 @@ export const Uploader: React.FC<UploaderProps> = ({
           <div className="z-20 w-full h-full flex justify-center items-center bg-black/50 absolute opacity-0 hover:opacity-100 ease-in-out duration-200">
             <button
               onClick={() => setPreview(null)}
-              className="w-10 h-10 p-2 rounded-full hover:bg-red-600 hover:text-white ease-in-out duration-200"
+              className="w-10 h-10 p-2 rounded-full text-white/75 hover:bg-red-600 hover:text-white ease-in-out duration-200"
             >
               <BsFillTrashFill size={25} />
             </button>
